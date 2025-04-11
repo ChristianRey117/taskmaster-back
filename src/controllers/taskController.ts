@@ -25,6 +25,20 @@ class TaskController {
       sendError(res, error.message);
     }
   }
+
+  async postTask(req: Request, res: Response) {
+    try {
+      const data = req.body;
+      const task = taskService.postTask(data);
+      if (task) {
+        sendSuccess(res, task);
+      } else {
+        sendError(res, "Task not created");
+      }
+    } catch (error: any) {
+      sendError(res, error.message);
+    }
+  }
 }
 
 export default new TaskController();
