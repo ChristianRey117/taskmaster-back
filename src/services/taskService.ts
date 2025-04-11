@@ -8,7 +8,7 @@ class TaskService {
     return task as ITask[];
   }
 
-  async getProductById(id: number): Promise<ITask | null> {
+  async getTaskById(id: number): Promise<ITask | null> {
     const task = await db.query<RowDataPacket[]>(
       "SELECT * FROM task WHERE id = ?",
       id
@@ -25,7 +25,19 @@ class TaskService {
       data
     );
     if (result.insertId) {
-      return await this.getProductById(result.insertId);
+      return await this.getTaskById(result.insertId);
+    }
+    return null;
+  }
+
+  async putTask(data: ITask, id: number): Promise<ITask | null> {
+    const result = await db.query<ResultSetHeader>(
+      `UPDATE task SET ? WHERE id = ?`,
+      [data, id]
+    );
+
+    if (result.affectedRows) {
+      return await this.getTaskById(id);
     }
     return null;
   }
