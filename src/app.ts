@@ -5,12 +5,13 @@ import routes from "./routes/routes";
 const app = express();
 const PORT = 3000;
 
+app.use(express.json());
+
 app.get("/", async (req: Request, res: Response) => {
   const result = await db.query("SELECT * FROM task");
   console.log(result);
   res.json(result);
 });
-
 app.use("/", routes);
 
 app.listen(PORT, () => {
