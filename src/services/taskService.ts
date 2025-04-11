@@ -41,6 +41,14 @@ class TaskService {
     }
     return null;
   }
+
+  async deleteTask(id: number): Promise<boolean> {
+    const result = await db.query<ResultSetHeader>(
+      `DELETE FROM task WHERE id = ?`,
+      id
+    );
+    return result.affectedRows > 0;
+  }
 }
 
 export default new TaskService();
