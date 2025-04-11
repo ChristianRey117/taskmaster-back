@@ -55,6 +55,20 @@ class TaskController {
       sendError(res, error.message);
     }
   }
+
+  async deleteTask(req: Request, res: Response) {
+    try {
+      const id = Number(req.params["id"]);
+      const deleted = await taskService.deleteTask(id);
+      if (deleted) {
+        sendSuccess(res, {});
+      } else {
+        sendError(res, `Product not found`, 404);
+      }
+    } catch (error: any) {
+      sendError(res, error.message);
+    }
+  }
 }
 
 export default new TaskController();
