@@ -5,7 +5,7 @@ const taskSchema = z.object({
   id: z.number().optional(),
   title: z.string().min(3).max(1000),
   description: z.string().min(3).max(1000),
-  state: z.enum(["TODO", "DOING", "DONE"]),
+  state: z.string(),
 });
 
 export type validatedTaskData = z.infer<typeof taskSchema>;

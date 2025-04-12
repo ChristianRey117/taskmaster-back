@@ -47,7 +47,7 @@ class TaskController {
       const task = await taskService.putTask(data, id);
 
       if (task) {
-        sendSuccess(res, task);
+        sendSuccess(res, [task]);
       } else {
         sendError(res, `Product not found`, 404);
       }
