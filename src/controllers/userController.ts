@@ -52,7 +52,7 @@ class UserController {
   }
 
   async findIsExistUser(email: string): Promise<boolean> {
-    return false;
+    return userService.verifyIfExistUser(email);
   }
 }
 

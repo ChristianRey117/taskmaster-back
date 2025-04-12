@@ -24,6 +24,15 @@ class User {
     }
     return null;
   }
+
+  async verifyIfExistUser(email: string) {
+    const result = await db.query<RowDataPacket[]>(
+      `SELECT * FROM user WHERE email = ?`,
+      email
+    );
+
+    return result.length > 0;
+  }
 }
 
 export default new User();
