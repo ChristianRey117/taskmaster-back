@@ -1,9 +1,12 @@
 import express, { Request, Response } from "express";
 import db from "./database/database";
 import routes from "./routes/routes";
+const cors = require("cors");
 
 const app = express();
 const PORT = 3000;
+
+app.use(cors());
 
 app.use(express.json());
 
