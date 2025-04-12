@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import userService from "../services/userService";
-import { sendError } from "../utils/requestHandler";
+import { sendError, sendSuccess } from "../utils/requestHandler";
 import bcrypt from "bcrypt";
 import { IUser } from "models/user";
 import jwt from "jsonwebtoken";
@@ -80,6 +80,21 @@ class UserController {
     } catch (error) {
       console.error("Error al iniciar sesión:", error);
       res.status(500).json({ message: "Error al iniciar sesión." });
+    }
+  }
+
+  async getAllTaskUser(req: Request, res: Response) {
+    try {
+      const idUser = Number(req.params["id"]);
+
+      const taskUser = await userService.getTasksByIdUser(idUser);
+      if (taskUser) {
+        sendSuccess(res, taskUser);
+      } else {
+        sendError(res, "Task not created");
+      }
+    } catch (error: any) {
+      sendError(res, error.message);
     }
   }
 }

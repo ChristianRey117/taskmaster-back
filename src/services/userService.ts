@@ -41,6 +41,14 @@ class User {
 
     return result.length > 0;
   }
+
+  async getTasksByIdUser(id: number) {
+    const result = await db.query<RowDataPacket[]>(
+      `SELECT * FROM task WHERE idUser = ?`,
+      id
+    );
+    return result;
+  }
 }
 
 export default new User();
