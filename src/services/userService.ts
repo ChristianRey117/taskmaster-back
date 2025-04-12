@@ -14,6 +14,14 @@ class User {
     return null;
   }
 
+  async getUserByEmail(email: string) {
+    const result = await db.query<RowDataPacket[]>(
+      `SELECT * FROM user WHERE email = ?`,
+      email
+    );
+    return result[0];
+  }
+
   async registerUser(data: IUser) {
     const result = await db.query<ResultSetHeader>(
       `INSERT INTO user SET ?`,
