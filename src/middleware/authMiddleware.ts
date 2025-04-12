@@ -4,7 +4,7 @@ import userService from "../services/userService";
 import { sendError } from "../utils/requestHandler";
 
 // Define una interfaz para el payload del token
-interface AuthPayload {
+export interface AuthPayload {
   userId: string;
 }
 
@@ -42,6 +42,6 @@ export const authenticateJWT = async (
     next(); // Permite el acceso a la siguiente ruta
   } catch (error) {
     console.error("Error al verificar el token:", error);
-    return res.status(403).json({ message: "Token inválido." }); // Token inválido
+    return res.status(401).json({ message: "Token inválido." }); // Token inválido
   }
 };
