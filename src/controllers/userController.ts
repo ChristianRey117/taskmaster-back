@@ -98,7 +98,7 @@ class UserController {
           sendError(res, "Error to get task");
         }
       } else {
-        sendError(res, "Error to get task");
+        sendError(res, "Error to get task", 401);
       }
     } catch (error: any) {
       sendError(res, error.message);
