@@ -3,4 +3,5 @@ export interface ITask {
   title: string;
   description: string;
   state: string;
+  idUser: number;
 }
