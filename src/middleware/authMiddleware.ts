@@ -16,7 +16,7 @@ export const authenticateJWT = async (
   const authHeader = req.headers["authorization"];
 
   if (!authHeader?.startsWith("Bearer ")) {
-    sendError(res, "Access denied");
+    sendError(res, "Access denied", 401);
     return res.status(401).json({
       message: "Acceso denegado. Token no proporcionado o formato incorrecto.",
     });
