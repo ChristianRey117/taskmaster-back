@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import userService from "../services/userService";
-import { sendError } from "utils/requestHandler";
+import { sendError } from "../utils/requestHandler";
 import bcrypt from "bcrypt";
 import { IUser } from "models/user";
 
@@ -24,11 +24,9 @@ class UserController {
       const { email, password } = req.body;
 
       // Verifica si el usuario ya existe por email o username
-      const existingUser = await this.findIsExistUser(email);
+      const existingUser = await userService.verifyIfExistUser(email);
       if (existingUser) {
-        return res.status(409).json({
-          message: "El usuario o el correo electrónico ya están registrados.",
-        });
+        sendError(res, "User is register", 409);
       }
 
       // Hashea la contraseña
@@ -41,7 +39,7 @@ class UserController {
       } as IUser);
 
       if (newUser) {
-        res.status(201).json({ message: "Usuario registrado exitosamente." });
+        res.status(201).json({ message: "User register success." });
       } else {
         sendError(res, "Error to register user");
       }
@@ -49,10 +47,6 @@ class UserController {
       console.error("Error al registrar usuario:", error);
       sendError(res, error.message, 500);
     }
-  }
-
-  async findIsExistUser(email: string): Promise<boolean> {
-    return userService.verifyIfExistUser(email);
   }
 }
 
