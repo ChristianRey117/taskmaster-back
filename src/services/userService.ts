@@ -1,4 +1,4 @@
-import { RowDataPacket } from "mysql2";
+import { ResultSetHeader, RowDataPacket } from "mysql2";
 import db from "../database/database";
 import { IUser } from "models/user";
 
@@ -10,6 +10,17 @@ class User {
     );
     if (Array.isArray(user) && user.length > 0) {
       return user[0] as IUser;
+    }
+    return null;
+  }
+
+  async registerUser(data: IUser) {
+    const result = await db.query<ResultSetHeader>(
+      `INSERT INTO user SET ?`,
+      data
+    );
+    if (result.insertId) {
+      return await this.getUserById(result.insertId);
     }
     return null;
   }
