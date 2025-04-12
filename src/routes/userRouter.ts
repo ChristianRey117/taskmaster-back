@@ -5,6 +5,6 @@ const userRouter = Router();
 
 userRouter.post("/add", userController.registerUser);
 userRouter.post("/", userController.loginUser);
-userRouter.get("/:id/tasks", userController.getAllTaskUser);
+userRouter.get("/tasks", userController.getAllTaskUser);
 
 export default userRouter;
